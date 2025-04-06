@@ -1,21 +1,21 @@
-# Use Node.js as the base image
+# Use the official Node.js LTS image as the base
 FROM node:18
 
-# Set the working directory
-WORKDIR /app
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json for dependency installation
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install --production
 
-# Copy the rest of the backend code
+# Copy the rest of the application files
 COPY . .
 
-# Expose the port the app runs on
+# Expose the port your app runs on
 EXPOSE 8080
 
-# Start the backend server
+# Command to run your app
 CMD ["npm", "start"]
 
